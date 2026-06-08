@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BPD — Bogotá Premier Drive | Terminal Titan 4.0</title>
-<!-- ═══ PWA ═══ -->
+
+<!-- ═══ PWA META ═══ -->
 <link rel="manifest" id="pwa-manifest">
 <meta name="theme-color" content="#E10600">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,9 +13,21 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BPD Premier">
 <meta name="description" content="Bogotá Premier Drive — Terminal Titan 4.0. Vitrina premium de vehículos usados de alto rendimiento en Bogotá, Colombia.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="BPD — Bogotá Premier Drive | Terminal Titan 4.0">
+<meta property="og:description" content="El Asfalto es Opcional. La Adrenalina No. Vitrina premium de vehículos de alto rendimiento en Bogotá, Colombia.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 <style>
+/* ════ DESIGN TOKENS ════ */
 :root{
   --ob:#07070A;--gr:#10101A;--gr2:#18182A;--gr3:#1E1E2E;
   --gold:#C9A84C;--gold-l:#E4C060;
@@ -40,16 +53,10 @@ body.hov #cur-r{transform:translate(-50%,-50%) scale(1.7);opacity:.35;}
 body.hov-red #cur{background:var(--red);}
 body.hov-red #cur-r{border-color:rgba(225,6,0,.5);}
 
-/* ── MOBILE OVERLAY & GAMING PAUSE DRAWER ── */
+/* ── MOBILE GAMING PAUSE DRAWER ── */
 .mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1500;opacity:0;pointer-events:none;transition:opacity .4s;}
 .mob-overlay.show{opacity:1;pointer-events:all;}
-.mob-drawer{
-  position:fixed;top:0;right:-110%;bottom:0;width:82%;max-width:340px;
-  background:rgba(5,5,8,.97);backdrop-filter:blur(28px) saturate(1.5);
-  border-left:2px solid var(--red);box-shadow:-20px 0 60px rgba(225,6,0,.15);
-  z-index:1600;transition:right .45s cubic-bezier(.16,1,.3,1);
-  padding:84px 36px 48px;display:flex;flex-direction:column;
-}
+.mob-drawer{position:fixed;top:0;right:-110%;bottom:0;width:82%;max-width:340px;background:rgba(5,5,8,.97);backdrop-filter:blur(28px) saturate(1.5);border-left:2px solid var(--red);box-shadow:-20px 0 60px rgba(225,6,0,.15);z-index:1600;transition:right .45s cubic-bezier(.16,1,.3,1);padding:84px 36px 48px;display:flex;flex-direction:column;}
 .mob-drawer.open{right:0;}
 .mob-close{position:absolute;top:18px;right:18px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);font-family:var(--fo);font-size:9px;padding:8px 12px;cursor:pointer;transition:all .2s;letter-spacing:.12em;}
 .mob-close:hover{border-color:var(--red);color:var(--red);}
@@ -94,9 +101,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:66px;display:flex;al
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,7,10,.9) 0%,rgba(7,7,10,.42) 55%,rgba(7,7,10,.82) 100%);z-index:2;}
 .hero-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);background-size:70px 70px;animation:grid-breathe 8s ease-in-out infinite;}
 @keyframes grid-breathe{0%,100%{opacity:.5}50%{opacity:1}}
-/* Scanlines on hero */
 .hero-scan{position:absolute;inset:0;z-index:3;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.13) 3px,rgba(0,0,0,.13) 4px);pointer-events:none;}
-/* Speed streaks */
 .hs{position:absolute;top:0;bottom:0;width:1px;z-index:2;}
 .hs1{right:18%;background:linear-gradient(180deg,transparent,rgba(225,6,0,.28) 40%,rgba(225,6,0,.5) 60%,transparent);}
 .hs2{right:35%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.04) 50%,transparent);}
@@ -107,8 +112,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:66px;display:flex;al
 .htdot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:blink 1.6s step-end infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 @keyframes fade-up{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-
-/* ────── GLITCH EFFECT (vitrina.css) ────── */
 h1.ht{font-family:var(--fd);font-size:clamp(64px,9vw,136px);line-height:.9;letter-spacing:.02em;margin-bottom:30px;animation:fade-up 1.1s .2s both;}
 h1.ht .g{color:var(--gold);}
 h1.ht .thin{font-family:var(--fb);font-weight:200;font-size:.68em;letter-spacing:.07em;}
@@ -118,8 +121,6 @@ h1.ht .thin{font-family:var(--fb);font-weight:200;font-size:.68em;letter-spacing
 .glitch::after{color:var(--gold-l);animation:gb 5s 1.5s infinite;clip-path:polygon(0 62%,100% 62%,100% 100%,0 100%);left:-3px;}
 @keyframes ga{0%,86%,100%{transform:none;opacity:0}88%{transform:skewX(-2deg) translateX(-8px);opacity:.9}90%{transform:skewX(1.5deg) translateX(4px);opacity:.65}92%{transform:none;opacity:0}96%{transform:skewX(-1deg) translateX(-3px);opacity:.35}}
 @keyframes gb{0%,84%,100%{transform:none;opacity:0}86%{transform:skewX(3deg) translateX(6px);opacity:.75}88%{transform:skewX(-2deg) translateX(-4px);opacity:.5}90%{transform:none;opacity:0}}
-
-/* GT RED live badge */
 .hero-live{position:absolute;top:80px;right:5vw;z-index:5;display:flex;align-items:center;gap:8px;font-family:var(--fo);font-size:7.5px;letter-spacing:.28em;color:var(--red);text-transform:uppercase;animation:fade-up 1.2s .6s both;}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red),0 0 24px var(--rg);animation:blink 1.2s step-end infinite;}
 .hero-sub{font-size:17px;font-weight:300;color:var(--muted);max-width:510px;margin-bottom:44px;line-height:1.72;animation:fade-up 1.1s .32s both;}
@@ -130,18 +131,17 @@ h1.ht .thin{font-family:var(--fb);font-weight:200;font-size:.68em;letter-spacing
 .hero-sc-lbl{font-family:var(--fo);font-size:7px;letter-spacing:.3em;color:var(--dim);writing-mode:vertical-rl;text-transform:uppercase;}
 
 /* ── BUTTONS ── */
-.btn-g{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;padding:16px 36px;font-family:var(--fo);font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;text-decoration:none;position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;}
+.btn-g,.btn-r,.btn-o{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-family:var(--fo);font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;text-decoration:none;position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;}
+.btn-g{background:var(--gold);color:#000;}
 .btn-g:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(201,168,76,.45);}
-.btn-g::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-110%) skewX(-20deg);transition:transform .5s;}
-.btn-g:hover::after{transform:translateX(200%) skewX(-20deg);}
-.btn-r{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;padding:16px 36px;font-family:var(--fo);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;text-decoration:none;position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s;}
+.btn-r{background:var(--red);color:#fff;letter-spacing:.18em;}
 .btn-r:hover{transform:translateY(-2px);box-shadow:0 0 32px var(--rg),0 0 64px rgba(225,6,0,.15);}
-.btn-r::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);transform:translateX(-110%) skewX(-20deg);transition:transform .5s;}
-.btn-r:hover::after{transform:translateX(200%) skewX(-20deg);}
-.btn-o{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--bord3);color:var(--muted);padding:16px 36px;font-family:var(--fo);font-size:9px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .25s;}
+.btn-o{border:1px solid var(--bord3);color:var(--muted);background:none;}
 .btn-o:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+.btn-g::after,.btn-r::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-110%) skewX(-20deg);transition:transform .5s;}
+.btn-g:hover::after,.btn-r:hover::after{transform:translateX(200%) skewX(-20deg);}
 
-/* ── DIVIDER ── */
+/* ── DIVIDERS ── */
 .div{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--gold) 80%,transparent);}
 .div-r{height:1px;background:linear-gradient(90deg,transparent,var(--red) 20%,var(--red) 80%,transparent);}
 
@@ -197,7 +197,7 @@ section{padding:110px 5vw;}
 .gp.l7{grid-column:4/8;grid-row:3/4;height:240px;}
 .gp.l8{grid-column:8/13;grid-row:3/4;height:240px;}
 
-/* ── RACING FILM SHOWCASE ── */
+/* ── RACING FILMS ── */
 .films-section{background:var(--gr);padding:90px 5vw;}
 .films-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:52px;}
 .film-card{position:relative;height:260px;overflow:hidden;background:var(--gr2);cursor:pointer;}
@@ -211,10 +211,8 @@ section{padding:110px 5vw;}
 .film-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);width:56px;height:56px;border:2px solid rgba(255,255,255,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:4;transition:all .3s;opacity:.7;}
 .film-card:hover .film-play{transform:translate(-50%,-50%) scale(1.05);border-color:var(--red);box-shadow:0 0 28px var(--rg);opacity:1;}
 .film-play::after{content:'';border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:16px solid rgba(255,255,255,.9);margin-left:4px;}
-.film-card:hover .film-play::after{border-left-color:#fff;}
 .film-neon{position:absolute;inset:0;border:2px solid var(--red);opacity:0;z-index:5;pointer-events:none;transition:opacity .3s;box-shadow:inset 0 0 30px rgba(225,6,0,.12);}
 .film-card:hover .film-neon{opacity:.7;}
-/* Runtime badge */
 .film-time{position:absolute;top:14px;right:14px;font-family:var(--fo);font-size:8px;letter-spacing:.12em;background:rgba(5,5,8,.85);color:var(--txt);padding:4px 9px;z-index:4;border:1px solid rgba(255,255,255,.08);}
 
 /* ── INVENTORY ── */
@@ -224,11 +222,8 @@ section{padding:110px 5vw;}
 .vc:hover{transform:scale(1.013);z-index:10;}
 .vc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(225,6,0,.07) 0%,transparent 65%);opacity:0;transition:opacity .4s;z-index:1;pointer-events:none;}
 .vc:hover::before{opacity:1;}
-
-/* FORZA HORIZON POPUP (vitrina.js) */
 .forza-pop{position:absolute;top:12px;left:50%;transform:translateX(-50%) scale(0) translateY(-6px);font-family:var(--fo);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(5,5,8,.96);border:1px solid var(--red);color:var(--red);padding:8px 18px;white-space:nowrap;z-index:20;box-shadow:0 0 28px var(--rg),0 0 60px rgba(225,6,0,.12);transition:transform .38s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0;pointer-events:none;}
 .vc:hover .forza-pop,.vc.tapped .forza-pop{transform:translateX(-50%) scale(1) translateY(0);opacity:1;}
-
 .vc-img{position:relative;overflow:hidden;height:250px;}
 .vc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1);}
 .vc:hover .vc-img img,.vc.tapped .vc-img img{transform:scale(1.06);}
@@ -236,7 +231,6 @@ section{padding:110px 5vw;}
 .vc-img::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(225,6,0,.09),transparent);z-index:2;opacity:0;pointer-events:none;}
 .vc:hover .vc-img::before,.vc.tapped .vc-img::before{animation:mb .7s ease-out forwards;}
 @keyframes mb{0%{opacity:0;transform:translateX(-100%) skewX(-14deg)}50%{opacity:1}100%{opacity:0;transform:translateX(220%) skewX(-14deg)}}
-
 .vc-badge{position:absolute;top:14px;right:14px;font-family:var(--fo);font-size:7px;letter-spacing:.16em;text-transform:uppercase;background:var(--red);color:#fff;padding:5px 10px;font-weight:700;z-index:3;}
 .vc-name{position:absolute;bottom:18px;left:20px;z-index:3;}
 .vc-make{font-family:var(--fd);font-size:26px;letter-spacing:.06em;color:var(--txt);}
@@ -246,19 +240,16 @@ section{padding:110px 5vw;}
 .vcs{background:var(--gr3);padding:13px 10px;text-align:center;}
 .vcs-v{font-family:var(--fd);font-size:22px;color:var(--gold);}
 .vcs-l{font-family:var(--fo);font-size:6.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:2px;}
-
-/* RPM BAR (Gran Turismo telemetry) */
 .rpm-wrap{margin-bottom:15px;}
 .rpm-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
 .rpm-lbl{font-family:var(--fo);font-size:6.5px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase;}
-.rpm-val{font-family:var(--fo);font-size:6.5px;letter-spacing:.18em;color:var(--red);text-transform:uppercase;transition:opacity .3s;}
-.rpm-bar{height:3px;background:rgba(225,6,0,.08);overflow:hidden;position:relative;}
+.rpm-val{font-family:var(--fo);font-size:6.5px;letter-spacing:.18em;color:var(--red);text-transform:uppercase;}
+.rpm-bar{height:3px;background:rgba(225,6,0,.08);overflow:hidden;}
 .rpm-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--red) 0%,#ff4040 80%,#ffaaaa 100%);box-shadow:0 0 10px var(--red);transition:width 1.8s cubic-bezier(.16,1,.3,1);}
 .vc:hover .rpm-fill,.vc.tapped .rpm-fill{width:100%;}
 .rpm-notches{display:flex;justify-content:space-between;margin-top:4px;}
 .rpm-n{width:1px;height:5px;background:var(--bord2);}
 .rpm-n:nth-child(-n+4){background:rgba(225,6,0,.45);}
-
 .vc-certs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
 .vc-cert{font-family:var(--fo);font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(201,168,76,.22);color:rgba(201,168,76,.65);padding:4px 8px;}
 .vc-price{font-family:var(--fd);font-size:38px;color:var(--txt);letter-spacing:.04em;}
@@ -269,19 +260,18 @@ section{padding:110px 5vw;}
 .vc-cta:hover{color:#fff;border-color:var(--red);box-shadow:0 0 20px var(--rg);}
 .vc-cta:hover::before{transform:scaleX(1);}
 .vc-cta span{position:relative;z-index:1;}
-
 /* Skeleton */
 .sk-card{background:var(--gr2);}
-.sk-img{height:250px;position:relative;overflow:hidden;}
 .sk{background:var(--gr3);border-radius:1px;position:relative;overflow:hidden;}
 .sk::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.045),transparent);animation:sh 1.7s infinite;}
 @keyframes sh{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .sk-h32{height:32px;margin-bottom:12px;}.sk-h16{height:16px;margin-bottom:8px;}.sk-h12{height:12px;width:65%;margin-bottom:8px;}
+.sk-img{height:250px;position:relative;overflow:hidden;}
 .sk-gr{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:16px;}
 .sk-g{background:var(--gr3);height:52px;position:relative;overflow:hidden;}
 .sk-g::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);animation:sh 1.7s .35s infinite;}
 
-/* ── TITAN SEAL (Gran Turismo HUD) ── */
+/* ── TITAN SEAL HUD ── */
 .seal-section{background:var(--gr);padding:100px 5vw;}
 .seal-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
 .seal-ring-wrap{display:flex;align-items:center;justify-content:center;position:relative;height:380px;}
@@ -309,10 +299,10 @@ section{padding:110px 5vw;}
 .sd-v.ok{color:var(--ok);}
 .sd-bar-wrap{display:flex;align-items:center;gap:8px;}
 .sd-bar{width:70px;height:2px;background:rgba(255,255,255,.05);}
-.sd-fill{height:100%;background:var(--gold);box-shadow:0 0 6px var(--gold);transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+.sd-fill{height:100%;background:var(--gold);box-shadow:0 0 6px var(--gold);}
 .sd-fill.r{background:var(--red);box-shadow:0 0 6px var(--red);}
 
-/* ── 3D SCANNER ── */
+/* ── SCANNER IDP ── */
 .scanner-section{background:var(--ob);}
 .scanner-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
 .scan-steps{display:flex;flex-direction:column;}
@@ -360,7 +350,7 @@ section{padding:110px 5vw;}
 .cta-sec .sp{margin:0 auto 50px;text-align:center;}
 .cta-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
 
-/* ── TICKER (GT Red) ── */
+/* ── TICKER ── */
 .ticker{background:var(--red);overflow:hidden;white-space:nowrap;padding:13px 0;}
 .tk-track{display:inline-flex;animation:tk 18s linear infinite;}
 .tk-i{font-family:var(--fo);font-size:10px;letter-spacing:.2em;color:#fff;padding:0 28px;font-weight:700;}
@@ -381,13 +371,20 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
 .fb2{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
 .fc{font-family:var(--fo);font-size:7px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;}
 
+/* ── PWA INSTALL BANNER ── */
+@keyframes pwa-su{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+#pwa-b{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:rgba(5,5,8,.97);border:1px solid rgba(225,6,0,.45);padding:14px 16px;z-index:9996;box-shadow:0 0 50px rgba(225,6,0,.2),0 8px 32px rgba(0,0,0,.6);max-width:400px;width:calc(100% - 40px);backdrop-filter:blur(24px);animation:pwa-su .4s cubic-bezier(.16,1,.3,1);}
+#pwa-ib{font-family:'Orbitron',sans-serif;font-size:8px;letter-spacing:.18em;background:var(--red);color:#fff;border:none;padding:11px 16px;cursor:pointer;text-transform:uppercase;white-space:nowrap;transition:box-shadow .2s;}
+#pwa-ib:hover{box-shadow:0 0 20px var(--rg);}
+#pwa-xb{font-family:'Orbitron',sans-serif;font-size:9px;background:none;border:1px solid rgba(255,255,255,.1);color:var(--muted);padding:10px;cursor:pointer;transition:all .2s;flex-shrink:0;}
+#pwa-xb:hover{border-color:var(--red);color:var(--red);}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .stats{grid-template-columns:repeat(2,1fr);}
   .scanner-layout,.seal-layout{grid-template-columns:1fr;}
   .seal-ring-wrap{height:280px;}
-  .ins-grid{grid-template-columns:1fr;}
-  .films-grid{grid-template-columns:1fr;}
+  .ins-grid,.films-grid{grid-template-columns:1fr;}
   .film-card{height:220px;}
   .gallery-masonry{grid-template-columns:repeat(2,1fr);}
   .gp.l1,.gp.l2,.gp.l3,.gp.l4,.gp.l5,.gp.l6,.gp.l7,.gp.l8{grid-column:auto;grid-row:auto;height:200px;}
@@ -415,12 +412,12 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     <div class="mob-title">MENÚ<br>PRINCIPAL</div>
   </div>
   <nav class="mob-nav">
-    <a href="#galeria" class="mob-link"><span class="mob-i">01</span>Galería</a>
-    <a href="#films" class="mob-link"><span class="mob-i">02</span>Racing Films</a>
+    <a href="#galeria"    class="mob-link"><span class="mob-i">01</span>Galería</a>
+    <a href="#films"      class="mob-link"><span class="mob-i">02</span>Racing Films</a>
     <a href="#inventario" class="mob-link"><span class="mob-i">03</span>Inventario</a>
-    <a href="#sello" class="mob-link"><span class="mob-i">04</span>Sello Titán</a>
-    <a href="#scanner" class="mob-link"><span class="mob-i">05</span>Scanner IDP</a>
-    <a href="#mercado" class="mob-link"><span class="mob-i">06</span>Mercado</a>
+    <a href="#sello"      class="mob-link"><span class="mob-i">04</span>Sello Titán</a>
+    <a href="#scanner"    class="mob-link"><span class="mob-i">05</span>Scanner IDP</a>
+    <a href="#mercado"    class="mob-link"><span class="mob-i">06</span>Mercado</a>
   </nav>
   <div class="mob-cta-w">
     <a href="#protocolo" class="btn-r" style="justify-content:center;">Iniciar Protocolo</a>
@@ -455,9 +452,7 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
   <div class="hs hs2"></div>
   <div class="hs hs3"></div>
   <div class="hero-ghost" id="hg">BPD</div>
-
   <div class="hero-live"><div class="live-dot"></div>LIVE · TERMINAL TITAN 4.0 · BOGOTÁ</div>
-
   <div class="hero-content">
     <div class="hero-tag"><div class="htdot"></div>Bogotá Premier Drive · Colombia · Est. 2024</div>
     <h1 class="ht">
@@ -469,7 +464,7 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     <p class="hero-sub">Mientras el mercado espera 8 meses en importación, nuestro algoritmo valoró tu máquina, validó su historia y renderizó la foto que la vende. En segundos.</p>
     <div class="hero-btns">
       <a href="#protocolo" class="btn-r">⚡ Iniciar Protocolo BPD</a>
-      <a href="#galeria" class="btn-o">Ver Colección</a>
+      <a href="#galeria"   class="btn-o">Ver Colección</a>
     </div>
   </div>
   <div class="hero-sc"><div class="hero-sc-line"></div><div class="hero-sc-lbl">Scroll</div></div>
@@ -504,7 +499,6 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     <div class="gp l8"><img src="https://images.unsplash.com/photo-1563720223185-11003d516935?w=700&q=80&auto=format" alt="Maserati" loading="lazy"><div class="gp-grad"></div><div class="gp-border"></div><div class="gp-label"><div class="badge">Exclusivo</div><div class="make">Maserati</div></div></div>
   </div>
 </section>
-
 <div class="div-r"></div>
 
 <!-- ═══ RACING FILMS ═══ -->
@@ -538,7 +532,6 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     </div>
   </div>
 </section>
-
 <div class="div"></div>
 
 <!-- ═══ INVENTORY ═══ -->
@@ -555,10 +548,9 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
   </div>
   <div class="inv-grid" id="inv-grid" style="display:none;"></div>
 </section>
-
 <div class="div-r"></div>
 
-<!-- ═══ TITAN SEAL (Gran Turismo HUD) ═══ -->
+<!-- ═══ TITAN SEAL HUD ═══ -->
 <section class="seal-section" id="sello">
   <div class="reveal" style="text-align:center;margin-bottom:60px;">
     <div class="ey-r" style="justify-content:center;">Sello Titán · Protocolo Gran Turismo</div>
@@ -570,7 +562,8 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
       <div class="seal-ring-wrap">
         <div class="seal-r seal-r4"></div>
         <div class="seal-r seal-r1">
-          <div class="seal-dot sd-t"></div><div class="seal-dot sd-b"></div><div class="seal-dot sd-l"></div><div class="seal-dot sd-r"></div>
+          <div class="seal-dot sd-t"></div><div class="seal-dot sd-b"></div>
+          <div class="seal-dot sd-l"></div><div class="seal-dot sd-r"></div>
         </div>
         <div class="seal-r seal-r2"></div>
         <div class="seal-r seal-r3"></div>
@@ -592,10 +585,9 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     </div>
   </div>
 </section>
-
 <div class="div"></div>
 
-<!-- ═══ SCANNER 3D ═══ -->
+<!-- ═══ SCANNER IDP ═══ -->
 <section class="scanner-section" id="scanner">
   <div class="scanner-layout">
     <div class="rl">
@@ -624,7 +616,6 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     </div>
   </div>
 </section>
-
 <div class="div"></div>
 
 <!-- ═══ MARKET ═══ -->
@@ -640,7 +631,6 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     <div class="ins"><div class="ins-n">+36%</div><div class="ins-t">Alta Rotación</div><div class="ins-p">El rango 150–250M COP concentra la mayor rotación del mercado bogotano.</div></div>
   </div>
 </section>
-
 <div class="div"></div>
 
 <!-- ═══ COMPARE ═══ -->
@@ -660,7 +650,6 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     </tbody>
   </table>
 </section>
-
 <div class="div-r"></div>
 
 <!-- ═══ CTA ═══ -->
@@ -671,7 +660,7 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
     <p class="sp">Foto 4K, valoración financiera y copy listo para publicar. Bogotá VIP Service activado.</p>
     <div class="cta-btns">
       <a href="#" class="btn-r">⚡ Iniciar Protocolo BPD</a>
-      <a href="#" class="btn-o">WhatsApp VIP Directo</a>
+      <a href="https://wa.me/573000000000?text=Hola%20BPD%2C%20quiero%20iniciar%20el%20protocolo%20de%20valoraci%C3%B3n" target="_blank" class="btn-o">WhatsApp VIP Directo</a>
     </div>
   </div>
 </section>
@@ -701,11 +690,11 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
       <div class="ftag">© 2026 BPD — Bogotá Premier Drive</div>
       <div class="ftag" style="margin-top:5px;">El Asfalto es Opcional. La Adrenalina No.</div>
       <div class="fsoc">
-        <a href="#" class="fs">Instagram</a>
-        <a href="#" class="fs">TikTok</a>
-        <a href="#" class="fs">YouTube</a>
-        <a href="#" class="fs">LinkedIn</a>
-        <a href="#" class="fs">WhatsApp</a>
+        <a href="https://instagram.com" target="_blank" class="fs">Instagram</a>
+        <a href="https://tiktok.com"    target="_blank" class="fs">TikTok</a>
+        <a href="https://youtube.com"   target="_blank" class="fs">YouTube</a>
+        <a href="https://linkedin.com"  target="_blank" class="fs">LinkedIn</a>
+        <a href="https://wa.me/573000000000" target="_blank" class="fs">WhatsApp</a>
       </div>
     </div>
     <div class="fa">
@@ -719,12 +708,17 @@ footer{background:#050507;border-top:1px solid var(--border);padding:68px 5vw 32
   </div>
 </footer>
 
+<!-- ═══════════════════════════════════════════
+  JAVASCRIPT — Cursor · Mobile Menu · Three.js
+  Scanner 3D · Parallax · Reveal · Inventory
+  PWA (manifest.json + Service Worker)
+════════════════════════════════════════════ -->
 <script>
 /* ─── CURSOR ─── */
-const C=document.getElementById('cur'),R=document.getElementById('cur-r');
+const _C=document.getElementById('cur'),_R=document.getElementById('cur-r');
 let cx=0,cy=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;C.style.left=cx+'px';C.style.top=cy+'px';});
-(function anim(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;R.style.left=rx+'px';R.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;_C.style.left=cx+'px';_C.style.top=cy+'px';});
+(function animCursor(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;_R.style.left=rx+'px';_R.style.top=ry+'px';requestAnimationFrame(animCursor);})();
 document.querySelectorAll('a,.nav-cta,.btn-g,.btn-r,.btn-o,.sc,.gp,.film-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
@@ -755,27 +749,16 @@ document.querySelectorAll('.mob-link').forEach(l=>l.addEventListener('click',clo
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(60,2,0.1,100);
   camera.position.set(0,0,4);
-  function resize(){
-    const w=canvas.parentElement.clientWidth,h=canvas.parentElement.clientHeight;
-    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
-  }
+  function resize(){const w=canvas.parentElement.clientWidth,h=canvas.parentElement.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}
   resize();window.addEventListener('resize',resize);
-  /* Particles */
-  const pos=[];
-  for(let i=0;i<2400;i++)pos.push((Math.random()-.5)*14,(Math.random()-.5)*10,(Math.random()-.5)*8);
-  const geo=new THREE.BufferGeometry();
-  geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  const pos=[];for(let i=0;i<2400;i++)pos.push((Math.random()-.5)*14,(Math.random()-.5)*10,(Math.random()-.5)*8);
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
   scene.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0xC9A84C,size:.026,transparent:true,opacity:.5,sizeAttenuation:true})));
-  /* GT Red accent particles */
-  const rpos=[];
-  for(let i=0;i<600;i++)rpos.push((Math.random()-.5)*12,(Math.random()-.5)*8,(Math.random()-.5)*6);
-  const rgeo=new THREE.BufferGeometry();
-  rgeo.setAttribute('position',new THREE.Float32BufferAttribute(rpos,3));
+  const rpos=[];for(let i=0;i<600;i++)rpos.push((Math.random()-.5)*12,(Math.random()-.5)*8,(Math.random()-.5)*6);
+  const rgeo=new THREE.BufferGeometry();rgeo.setAttribute('position',new THREE.Float32BufferAttribute(rpos,3));
   scene.add(new THREE.Points(rgeo,new THREE.PointsMaterial({color:0xE10600,size:.018,transparent:true,opacity:.35,sizeAttenuation:true})));
-  /* Grid plane */
   const grid=new THREE.Mesh(new THREE.PlaneGeometry(20,20,24,24),new THREE.MeshBasicMaterial({color:0xC9A84C,wireframe:true,transparent:true,opacity:.035}));
   grid.rotation.x=-Math.PI/2.8;grid.position.y=-3;scene.add(grid);
-  /* Tori */
   const t1=new THREE.Mesh(new THREE.TorusGeometry(1.2,.022,16,80),new THREE.MeshBasicMaterial({color:0xC9A84C,transparent:true,opacity:.16}));
   t1.position.set(2.5,0,0);scene.add(t1);
   const t2=new THREE.Mesh(new THREE.TorusGeometry(.7,.014,12,60),new THREE.MeshBasicMaterial({color:0xE10600,transparent:true,opacity:.12}));
@@ -814,27 +797,32 @@ document.querySelectorAll('.mob-link').forEach(l=>l.addEventListener('click',clo
   (function loop(){requestAnimationFrame(loop);t+=.012;
     cube.rotation.x=t*.4;cube.rotation.y=t*.6;
     cube2.rotation.x=-t*.5;cube2.rotation.y=-t*.3;
-    ring.rotation.x=Math.sin(t*.5)*Math.PI;ring.rotation.y=t*.3;
-    ring.scale.setScalar(.8+Math.sin(t*2)*.15);
+    ring.rotation.x=Math.sin(t*.5)*Math.PI;ring.rotation.y=t*.3;ring.scale.setScalar(.8+Math.sin(t*2)*.15);
     renderer.render(scene,camera);
   })();
 })();
 
-/* ─── HERO PARALLAX ─── */
+/* ─── PARALLAX ─── */
 const hg=document.getElementById('hg');
 window.addEventListener('scroll',()=>{hg.style.transform=`translateY(${window.scrollY*.15}px)`;});
 
-/* ─── INTERSECTION OBSERVER ─── */
+/* ─── REVEAL ─── */
 const io=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*80);io.unobserve(e.target);}});
 },{threshold:.06,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>io.observe(el));
 
-/* ─── INVENTORY DATA (Forza popup + RPM bar) ─── */
+/* ─── INVENTORY ─── */
 const INV=[
-  {make:'BMW',model:'M2 CS',year:'2022',badge:'DESTACADO',hp:'444',acc:'4.0S',km:'18,500',price:'$285M',fin:'$3.9M',img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80&auto=format',certs:['RUNT Limpio','Peritaje 200P','Sin Siniestros'],forza:'⚡ PERFECT SHIFT!'},
-  {make:'Porsche',model:'911 Carrera S',year:'2021',badge:'VIP',hp:'450',acc:'3.7S',km:'34,200',price:'$485M',fin:'$6.8M',img:'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=700&q=80&auto=format',certs:['RUNT Limpio','Peritaje 200P','Sin Siniestros'],forza:'🏆 ULTIMATE SPEED'},
-  {make:'Mercedes',model:'AMG C63 S',year:'2023',badge:'NUEVO',hp:'503',acc:'3.4S',km:'9,800',price:'$520M',fin:'$7.2M',img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=700&q=80&auto=format',certs:['RUNT Limpio','Peritaje 200P','Garantía Activa'],forza:'🔥 CLEAN RACING'},
+  {make:'BMW',model:'M2 CS',year:'2022',badge:'DESTACADO',hp:'444',acc:'4.0S',km:'18,500',price:'$285M',fin:'$3.9M',
+   img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80&auto=format',
+   certs:['RUNT Limpio','Peritaje 200P','Sin Siniestros'],forza:'⚡ PERFECT SHIFT!'},
+  {make:'Porsche',model:'911 Carrera S',year:'2021',badge:'VIP',hp:'450',acc:'3.7S',km:'34,200',price:'$485M',fin:'$6.8M',
+   img:'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?w=700&q=80&auto=format',
+   certs:['RUNT Limpio','Peritaje 200P','Sin Siniestros'],forza:'🏆 ULTIMATE SPEED'},
+  {make:'Mercedes',model:'AMG C63 S',year:'2023',badge:'NUEVO',hp:'503',acc:'3.4S',km:'9,800',price:'$520M',fin:'$7.2M',
+   img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=700&q=80&auto=format',
+   certs:['RUNT Limpio','Peritaje 200P','Garantía Activa'],forza:'🔥 CLEAN RACING'},
 ];
 
 function buildInv(){
@@ -842,8 +830,7 @@ function buildInv(){
   INV.forEach((v,i)=>{
     const notches=[...Array(10)].map(()=>'<div class="rpm-n"></div>').join('');
     const c=document.createElement('div');
-    c.className='vc reveal';
-    c.style.transitionDelay=`${i*100}ms`;
+    c.className='vc reveal';c.style.transitionDelay=`${i*100}ms`;
     c.innerHTML=`
       <div class="vc-img">
         <div class="forza-pop">${v.forza}</div>
@@ -867,23 +854,99 @@ function buildInv(){
         <div class="vc-fin">desde <strong>${v.fin} / mes</strong> a 72 meses · tasa preferencial</div>
         <button class="vc-cta"><span>Ver Detalles del Protocolo →</span></button>
       </div>`;
-    /* Mouse tracking glow */
     c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');c.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');});
-    /* Touch: activate Forza popup + RPM */
-    c.addEventListener('touchstart',()=>{
-      if(c._locked)return;c._locked=true;c.classList.add('tapped');
-      setTimeout(()=>{c.classList.remove('tapped');c._locked=false;},2000);
-    },{passive:true});
+    c.addEventListener('touchstart',()=>{if(c._locked)return;c._locked=true;c.classList.add('tapped');setTimeout(()=>{c.classList.remove('tapped');c._locked=false;},2000);},{passive:true});
     g.appendChild(c);
   });
 }
-
 setTimeout(()=>{
   document.getElementById('sk-grid').style.display='none';
   document.getElementById('inv-grid').style.display='grid';
   buildInv();
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 },1200);
+
+/* ══════════════════════════════════════════════════
+   PWA — manifest.json + Service Worker inline
+   En producción: extraer a /manifest.json y /sw.js
+══════════════════════════════════════════════════ */
+(function initPWA(){
+  /* 1 · ICONO CANVAS */
+  function mkIcon(sz){
+    const cv=document.createElement('canvas');cv.width=cv.height=sz;
+    const x=cv.getContext('2d');
+    x.fillStyle='#07070A';x.fillRect(0,0,sz,sz);
+    x.strokeStyle='#C9A84C';x.lineWidth=sz*.032;x.strokeRect(sz*.06,sz*.06,sz*.88,sz*.88);
+    x.fillStyle='#E10600';x.fillRect(sz*.06,sz*.06,sz*.88,sz*.028);
+    x.fillStyle='#C9A84C';x.font=`bold ${sz*.3}px Arial`;x.textAlign='center';x.textBaseline='middle';
+    x.fillText('BPD',sz*.5,sz*.42);
+    x.fillStyle='rgba(122,122,146,.9)';x.font=`${sz*.1}px Arial`;x.fillText('PREMIER',sz*.5,sz*.64);
+    x.fillStyle='#E10600';x.fillRect(sz*.06,sz*.87,sz*.88,sz*.028);
+    return cv.toDataURL('image/png');
+  }
+
+  /* 2 · MANIFEST */
+  const SIZES=[72,96,128,144,152,192,384,512];
+  const icons=SIZES.map(s=>({src:mkIcon(s),sizes:`${s}x${s}`,type:'image/png',purpose:s>=192?'any maskable':'any'}));
+  const MANIFEST={
+    name:'BPD — Bogotá Premier Drive',short_name:'BPD Premier',
+    description:'Terminal Titan 4.0 — Vitrina premium de vehículos de alto rendimiento en Bogotá, Colombia.',
+    start_url:'./',scope:'./',display:'standalone',orientation:'portrait-primary',
+    background_color:'#07070A',theme_color:'#E10600',lang:'es',
+    categories:['automotive','shopping'],icons,
+    shortcuts:[
+      {name:'Iniciar Protocolo',short_name:'Protocolo',url:'./#protocolo',description:'Valoración instantánea de tu vehículo'},
+      {name:'Ver Inventario',  short_name:'Inventario', url:'./#inventario',description:'Colección premium certificada BPD'},
+      {name:'Scanner IDP',    short_name:'Scanner',    url:'./#scanner',   description:'Escaneo OCR de tarjeta de propiedad RUNT'}
+    ]
+  };
+  const mBlob=new Blob([JSON.stringify(MANIFEST,null,2)],{type:'application/manifest+json'});
+  document.getElementById('pwa-manifest').href=URL.createObjectURL(mBlob);
+  const al=document.createElement('link');al.rel='apple-touch-icon';al.href=mkIcon(180);document.head.appendChild(al);
+  const fi=document.createElement('link');fi.rel='icon';fi.type='image/png';fi.href=mkIcon(32);document.head.appendChild(fi);
+
+  /* 3 · SERVICE WORKER */
+  const SW=`
+const CACHE='bpd-titan-v4.0';
+const STATIC=['./',
+  'https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300&family=JetBrains+Mono:wght@300;400;700&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
+];
+const OFFLINE=\`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BPD · Sin Señal</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#07070A;color:#EDEBE2;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center}.t{font-size:8px;letter-spacing:.3em;color:#E10600;text-transform:uppercase;margin-bottom:16px}.h{font-size:52px;color:#C9A84C;font-family:sans-serif;letter-spacing:.06em;margin-bottom:10px}.s{font-size:13px;color:#7A7A92;margin-bottom:24px}.b{width:200px;height:2px;background:#E10600;margin:0 auto;animation:p 2s ease-in-out infinite}@keyframes p{0%,100%{opacity:.25}50%{opacity:1}}</style></head><body><div><div class="t">◉ TERMINAL TITAN · OFFLINE</div><div class="h">SIN SEÑAL</div><div class="s">Reconectando al servidor BPD...</div><div class="b"></div></div></body></html>\`;
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>Promise.allSettled(STATIC.map(u=>c.add(u).catch(()=>{})))));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener('fetch',e=>{const{request:req}=e;const url=new URL(req.url);if(req.method!=='GET'||url.protocol==='chrome-extension:')return;if(url.hostname.includes('unsplash.com')){e.respondWith(caches.match(req).then(c=>{if(c)return c;return fetch(req).then(r=>{if(r&&r.status===200)caches.open(CACHE).then(ch=>ch.put(req,r.clone()));return r;}).catch(()=>new Response('',{status:408}));}));return;}if(req.mode==='navigate'){e.respondWith(fetch(req).then(r=>{caches.open(CACHE).then(c=>c.put(req,r.clone()));return r;}).catch(()=>caches.match(req).then(r=>r||new Response(OFFLINE,{headers:{'Content-Type':'text/html;charset=utf-8'}}))));return;}e.respondWith(caches.match(req).then(c=>{if(c)return c;return fetch(req).then(r=>{if(r&&r.status===200)caches.open(CACHE).then(ch=>ch.put(req,r.clone()));return r;}).catch(()=>new Response('',{status:408}));}));});
+self.addEventListener('push',e=>{const d=e.data?e.data.json():{};e.waitUntil(self.registration.showNotification(d.title||'BPD Premier',{body:d.body||'Nueva unidad en Terminal Titan.',tag:'bpd-notif',data:{url:d.url||'./'}}));});
+self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(clients.openWindow(e.notification.data.url||'./'));});
+`;
+
+  /* 4 · REGISTRAR SW */
+  if('serviceWorker' in navigator){
+    const swBlob=new Blob([SW],{type:'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob))
+      .then(r=>console.log('%c[BPD SW] ✓','color:#C9A84C;font-weight:bold',r.scope))
+      .catch(e=>console.warn('[BPD SW]',e));
+  }
+
+  /* 5 · INSTALL BANNER (A2HS) */
+  let dp=null;
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;showBanner();});
+  window.addEventListener('appinstalled',()=>{const b=document.getElementById('pwa-b');if(b)b.remove();});
+
+  function showBanner(){
+    if(document.getElementById('pwa-b'))return;
+    const b=document.createElement('div');b.id='pwa-b';
+    b.innerHTML=`<div style="display:flex;align-items:center;gap:12px;flex:1"><div style="width:36px;height:36px;background:#E10600;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏎</div><div><div style="font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.22em;color:#E10600;text-transform:uppercase;margin-bottom:2px">PWA · Disponible</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;color:#EDEBE2">Instalar BPD Premier Drive</div></div></div><button id="pwa-ib">INSTALAR</button><button id="pwa-xb">✕</button>`;
+    document.body.appendChild(b);
+    document.getElementById('pwa-ib').addEventListener('click',async()=>{if(!dp)return;dp.prompt();const{outcome}=await dp.userChoice;console.log('[BPD PWA]',outcome);dp=null;b.remove();});
+    document.getElementById('pwa-xb').addEventListener('click',()=>b.remove());
+  }
+
+  /* 6 · LOG */
+  console.log('%cBPD TERMINAL TITAN 4.0','color:#C9A84C;font-size:16px;font-weight:bold');
+  console.log('%cmanifest.json ✓  Service Worker ✓  PWA Ready','color:#3DE87A');
+  console.log('%cEn prod: servir /manifest.json y /sw.js como archivos estáticos.','color:#7A7A92;font-size:10px');
+})();
 </script>
 </body>
 </html>
